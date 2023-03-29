@@ -12,6 +12,14 @@ const AddCourse =() => {
         seconds: 0
       });
 
+      const onChange = (duration) => {
+        const { hours, minutes, seconds } = duration;
+        setDuration({ hours, minutes, seconds });
+        Course.duration = hours*60 + minutes 
+        
+      };
+
+
       const [Course, setCourse] = useState({
         title: '',
         description: '',
@@ -23,18 +31,21 @@ const AddCourse =() => {
         language: '',
         instructor : ''
       });
+      
+      const [inputValue, setInputValue] = useState('');
       const [Tags, setTags] = useState([]);
-      const handleAddButtonClick = () => {
-        if (Course.tags !== []) {
-            setTags([...Tags, Course.tags]);
-            setTags([]);
-        }
+      
+      const handleInputChange = (event) => {
+        setInputValue(event.target.value);
       };
 
-      
-      const onChange = (duration) => {
-        const { hours, minutes, seconds } = duration;
-        setDuration({ hours, minutes, seconds });
+      const handleAddButtonClick = () => {
+        if (inputValue !== '') {
+            setTags([...Tags, inputValue]);
+            setInputValue('');
+            console.log('Tags', Tags) ;
+            Course.tags = Tags ; 
+        }
       };
 
       const handleTitleChange = (event) => {
@@ -176,7 +187,7 @@ const AddCourse =() => {
                                             <InputGroup.Prepend>
                                                 <Button onClick={handleAddButtonClick}>Add</Button>
                                             </InputGroup.Prepend>
-                                            <FormControl aria-describedby="basic-addon1" placeholder="Add a Tag here" />
+                                            <FormControl aria-describedby="basic-addon1" placeholder="Add a Tag here" value={inputValue} onChange={handleInputChange}/>
                                         </InputGroup>
                                         <ul>
                                           {Tags.map((string, index) => (
