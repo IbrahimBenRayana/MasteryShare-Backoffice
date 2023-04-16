@@ -2,6 +2,8 @@ import React, {useState} from 'react';
 import Aux from "../../../hoc/_Aux";
 import {Row, Col, Card, Form, Button, InputGroup, FormControl, DropdownButton, Dropdown} from 'react-bootstrap';
 import DurationPicker from "react-duration-picker";
+import { addCourse } from '../../API/CourseAPI';
+
 
 const AddCourse =() => {
 
@@ -89,6 +91,8 @@ const AddCourse =() => {
         const { title, description, price, tags, category, subCategory, duration, language, instructor } = Course;
         const course = { title, description, price, tags, category, subCategory, duration, language, instructor };
         console.log(course);
+        addCourse(course);
+       
         };
 
     
